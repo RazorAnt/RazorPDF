@@ -4,10 +4,47 @@ RazorPDF
 RazorPDF is a simple project that makes it a breeze to create PDFs using the Razor view engine. Since Razor is really a template syntax, it can do lot more than just generate HTML.  RazorPDF uses it to generate iText XML.  Then using the iTextSharp library, we turn that iText XML into a PDF to return.  The end result is a easy to use, clean method for generating PDFs.
 
 ##Usage
-The easiest way to get started with RazorPDF is to add the Nuget package to your MVC project. There is a short screencast on [my blog](http://nyveldt.com/blog/page/razorpdf) to get you started so well as a sample project and some syntax samples.
 
-##Acknowledgements
-RazorPDF likely wouldn't exist without the [Spark view engine](http://sparkviewengine.com/). The ability to create PDFs with the Spark view engine is something I've missed often since switching to using Razor as my default view engine in MVC projects. Huge thanks to [Louis DeJardin](http://whereslou.com/) for putting together the Spark view engine many years ago and for the idea of mixing Spark with iTextSharp as a nice way to make PDFs.
+Just return the PdfResult 
+```
+public ActionResult PdfView()
+{
+	return this.Pdf(new PdfModel
+	{
+		Field1 = "Foo",
+		Field2 = "Bar"
+	});
+}
+```
 
-Also, RazorPDF is worthless without [iTextSharp](http://sourceforge.net/projects/itextsharp/).  Thanks so much to the team that works on that incredible project.
+Or parse it to stream 
+
+Get razor from file or from your CMS 
+``` 
+const string razor = "<h1>PDF </h1><p>Hello @Model.Field1</p><p>@Model.Field2</p>";
+```
+
+Parse PDF from Razor template 
+```
+var ms = (new RazorPDF.PdfParser()).ParseRazor(razor, model);
+```
+
+Them you can save the memory stream to file 
+```
+var content = ms.ToArray();
+using (var fs = System.IO.File.OpenWrite(HttpContext.Server.MapPath("~/App_Data/foobar.pdf")))
+{
+	fs.Write(content, 0, (int)content.Length);
+}
+```
+
+Or just return it as PdfView
+```
+return this.Pdf(ms.ToArray()); 
+``` 
+
+In case you want return PDF files from file system 
+```
+return this.PdfFile(HttpContext.Server.MapPath("~/App_Data/foobar.pdf"));
+``` 
 
