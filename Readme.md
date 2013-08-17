@@ -5,7 +5,7 @@ RazorPDF is a simple project that makes it a breeze to create PDFs using the Raz
 
 ##Usage
 
-Just return the PdfResult 
+Simple usage: Just return the PdfResult. In this case you will need a view file like usual.
 ```
 public ActionResult PdfView()
 {
@@ -17,9 +17,9 @@ public ActionResult PdfView()
 }
 ```
 
-Or parse it to stream 
 
-Get razor from file or from your CMS 
+
+More complex: Get razor template from file or from your CMS 
 ``` 
 const string razor = "<h1>PDF </h1><p>Hello @Model.Field1</p><p>@Model.Field2</p>";
 ```
@@ -29,7 +29,7 @@ Parse PDF from Razor template
 var ms = (new RazorPDF.PdfParser()).ParseRazor(razor, model);
 ```
 
-Them you can save the memory stream to file 
+Then you can save the memory stream to file
 ```
 var content = ms.ToArray();
 using (var fs = System.IO.File.OpenWrite(HttpContext.Server.MapPath("~/App_Data/foobar.pdf")))
@@ -38,12 +38,12 @@ using (var fs = System.IO.File.OpenWrite(HttpContext.Server.MapPath("~/App_Data/
 }
 ```
 
-Or just return it as PdfView
+Return memory stream as PdfView
 ```
 return this.Pdf(ms.ToArray()); 
 ``` 
 
-In case you want return PDF files from file system 
+And if you already have PDF files on file system.
 ```
 return this.PdfFile(HttpContext.Server.MapPath("~/App_Data/foobar.pdf"));
 ``` 
