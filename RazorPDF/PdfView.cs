@@ -12,14 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // 
-using System;
-using System.Collections.Generic;
+
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Xml;
-using System.Xml.Linq;
 using iTextSharp.text;
 using iTextSharp.text.html;
 using iTextSharp.text.pdf;
@@ -39,8 +36,8 @@ namespace RazorPDF
         public void Render(ViewContext viewContext, TextWriter writer)
         {
             // generate view into string
-            var sb = new System.Text.StringBuilder();
-            TextWriter tw = new System.IO.StringWriter(sb);
+            var sb = new StringBuilder();
+            TextWriter tw = new StringWriter(sb);
             _result.View.Render(viewContext, tw);
             var resultCache = sb.ToString();
 
@@ -82,8 +79,8 @@ namespace RazorPDF
 
         private static XmlTextReader GetXmlReader(string source)
         {
-            byte[] byteArray = Encoding.UTF8.GetBytes(source);
-            MemoryStream stream = new MemoryStream(byteArray);
+            var byteArray = Encoding.UTF8.GetBytes(source);
+            var stream = new MemoryStream(byteArray);
 
             var xtr = new XmlTextReader(stream);
             xtr.WhitespaceHandling = WhitespaceHandling.None; // Helps iTextSharp parse 
