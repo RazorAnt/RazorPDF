@@ -29,12 +29,15 @@ namespace RazorPDF
             ViewData = new ViewDataDictionary(model);
             ViewName = name;
         }
-        public PdfResult() : this(new ViewDataDictionary(), "Pdf")
+        public PdfResult()
+            : this(new ViewDataDictionary(), "Pdf")
         {
         }
-        public PdfResult(object model) : this(model, "Pdf")
+        public PdfResult(object model)
+            : this(model, "Pdf")
         {
         }
+
 
         //Override FindView to load PdfView
         protected override ViewEngineResult FindView(ControllerContext context)
@@ -42,6 +45,7 @@ namespace RazorPDF
             var result = base.FindView(context);
             if (result.View == null)
                 return result;
+
 
             var pdfView = new PdfView(result);
             return new ViewEngineResult(pdfView, pdfView);
