@@ -1,4 +1,5 @@
-﻿// Copyright 2012 Al Nyveldt - http://nyveldt.com
+﻿using iTextSharp.text.pdf;
+// Copyright 2012 Al Nyveldt - http://nyveldt.com
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,11 +24,18 @@ namespace RazorPDF
 {
     public class PdfResult : ViewResult
     {
+        PdfPageEventHelper pageEventHelper = null;
         //Constructors
-        public PdfResult(object model, string name)
+        public PdfResult(object model, string name, PdfPageEventHelper pageEventHelper)
         {
             ViewData = new ViewDataDictionary(model);
             ViewName = name;
+            this.pageEventHelper = pageEventHelper;
+        }
+        public PdfResult(object model, string name)
+            : this(model, name, null)
+        {
+
         }
         public PdfResult() : this(new ViewDataDictionary(), "Pdf")
         {
@@ -43,7 +51,7 @@ namespace RazorPDF
             if (result.View == null)
                 return result;
 
-            var pdfView = new PdfView(result);
+            var pdfView = new PdfView(result, pageEventHelper);
             return new ViewEngineResult(pdfView, pdfView);
         }
     }

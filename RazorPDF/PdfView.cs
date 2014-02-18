@@ -30,10 +30,16 @@ namespace RazorPDF
     public class PdfView : IView, IViewEngine
     {
         private readonly ViewEngineResult _result;
-
+        private PdfPageEventHelper pageEventHelper = null;
         public PdfView(ViewEngineResult result)
+            : this(result, null)
+        {
+        }
+
+        public PdfView(ViewEngineResult result, PdfPageEventHelper pageEventHelper)
         {
             _result = result;
+            this.pageEventHelper = pageEventHelper;
         }
 
         public void Render(ViewContext viewContext, TextWriter writer)
@@ -65,6 +71,8 @@ namespace RazorPDF
 
             // associate output with response stream
             var pdfWriter = PdfWriter.GetInstance(document, viewContext.HttpContext.Response.OutputStream);
+            if (pageEventHelper != null)
+                pdfWriter.PageEvent = pageEventHelper;
             pdfWriter.CloseStream = false;
 
             // this is as close as we can get to being "success" before writing output
