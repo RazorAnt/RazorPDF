@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://www.apache.org/licenses/</licenseUrl>
+    <projectUrl>https://github.com/gverduci/RazorPDF</projectUrl>
+    <iconUrl>http://nyveldt.com/</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Added support to itextsharp page events.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Pdf iTextSharp</tags>
+  </metadata>
+</package>
