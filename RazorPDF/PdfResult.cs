@@ -1,4 +1,4 @@
-﻿// Copyright 2012 Al Nyveldt - http://nyveldt.com
+﻿// Copyright 2016 Al Nyveldt - http://nyveldt.com, Ole Koeckemann <ole.k@web.de>
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,39 +12,76 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // 
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+using System.Threading.Tasks;
+using System.Xml;
 
 namespace RazorPDF
 {
-    public class PdfResult : ViewResult
+    public class PdfResult : ActionResult
     {
+        /// <summary>
+        /// Gets or sets the Content-Type header for the response.
+        /// </summary>
+        public string ContentType { get; set; }
+        public string ContentDisposition { get; private set; }
+        /// <summary>
+        /// Gets the view data model.
+        /// </summary>
+        public object Model => ViewData?.Model;
+
+        public int StatusCode { get { return 200; } }
+
+        public ViewDataDictionary ViewData{ get; set; }
+
+        public ITempDataDictionary TempData { get; set; }
+
+        public string ViewName { get; set; }
+
+        public string FileName { get; set; }
+        public bool Download { get; set; }
+
+        public IViewEngine ViewEngine { get; set; }
+
+
         //Constructors
-        public PdfResult(object model, string name)
+        public PdfResult()
         {
-            ViewData = new ViewDataDictionary(model);
-            ViewName = name;
-        }
-        public PdfResult() : this(new ViewDataDictionary(), "Pdf")
-        {
-        }
-        public PdfResult(object model) : this(model, "Pdf")
-        {
+            ContentType = "application/pdf";
         }
 
-        //Override FindView to load PdfView
-        protected override ViewEngineResult FindView(ControllerContext context)
+        public async override Task ExecuteResultAsync(ActionContext context)
         {
-            var result = base.FindView(context);
-            if (result.View == null)
-                return result;
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
 
-            var pdfView = new PdfView(result);
-            return new ViewEngineResult(pdfView, pdfView);
+            if(Download)
+                ContentDisposition = $"attachment; filename=\"{FileName}\"";
+            else
+                ContentDisposition = $"inline; filename=\"{FileName}\"";
+
+            var services = context.HttpContext.RequestServices;
+            var executor = services.GetRequiredService<PdfResultExecutor>();
+
+            var result = executor.FindView(context, this);
+            result.EnsureSuccessful(originalLocations: null);
+
+            var view = result.View;
+            using (view as IDisposable)
+            {
+                await executor.ExecuteAsync(context, view, this);
+            }
         }
     }
 }

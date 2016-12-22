@@ -1,4 +1,4 @@
-﻿// Copyright 2012 Al Nyveldt - http://nyveldt.com
+﻿// Copyright 2016 Al Nyveldt - http://nyveldt.com, Ole Koeckemann <ole.k@web.de>
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,40 +12,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Linq;
 using iTextSharp.text;
 using iTextSharp.text.html;
 using iTextSharp.text.pdf;
 using iTextSharp.text.xml;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
+using Microsoft.AspNetCore.Mvc.Internal;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace RazorPDF
 {
-    public class PdfView : IView, IViewEngine
+    public class PdfView : IView
     {
-        private readonly ViewEngineResult _result;
+        private readonly IViewEngine _viewEngine;
 
-        public PdfView(ViewEngineResult result)
+        public string Path { get; set; }
+
+        public PdfView(IViewEngine viewEngine)
         {
-            _result = result;
+            _viewEngine = viewEngine;
         }
 
-        public void Render(ViewContext viewContext, TextWriter writer)
+        public Task RenderAsync(ViewContext context)
         {
-            // generate view into string
             var sb = new System.Text.StringBuilder();
             TextWriter tw = new System.IO.StringWriter(sb);
-            _result.View.Render(viewContext, tw);
-            var resultCache = sb.ToString();
+
+
+            var _bufferScope = context.HttpContext.RequestServices.GetRequiredService<IViewBufferScope>();
+
+
+            var buffer = new ViewBuffer(_bufferScope, Path, ViewBuffer.ViewPageSize);
+            var writer = new ViewBufferTextWriter(buffer, context.Writer.Encoding);
+            
+            context.Writer.Write("Hello PDF");
+
+            return TaskCache.CompletedTask;
 
             // detect itext (or html) format of response
-            XmlParser parser;
+            /*XmlParser parser;
             using (var reader = GetXmlReader(resultCache))
             {
                 while (reader.Read() && reader.NodeType != XmlNodeType.Element)
@@ -77,7 +90,7 @@ namespace RazorPDF
                 parser.Go(document, reader);
             }
 
-            pdfWriter.Close();
+            pdfWriter.Close();*/
         }
 
         private static XmlTextReader GetXmlReader(string source)
@@ -88,21 +101,6 @@ namespace RazorPDF
             var xtr = new XmlTextReader(stream);
             xtr.WhitespaceHandling = WhitespaceHandling.None; // Helps iTextSharp parse 
             return xtr;
-        }
-
-        public ViewEngineResult FindPartialView(ControllerContext controllerContext, string partialViewName, bool useCache)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ReleaseView(ControllerContext controllerContext, IView view)
-        {
-            _result.ViewEngine.ReleaseView(controllerContext, _result.View);
         }
     }
 }

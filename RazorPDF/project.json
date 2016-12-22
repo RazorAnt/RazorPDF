@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "Newtonsoft.Json": "9.0.1",
+    "Microsoft.AspNetCore.Mvc": "1.0.1",
+    "Microsoft.AspNetCore.Mvc.Core": "1.0.1",
+    "iTextSharp": "5.5.10"
+  },
+  "frameworks": {
+    "net461": {
+    }
+  },
+  "runtimes": {
+    "win": {}
+  }
+}
