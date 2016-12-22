@@ -28,7 +28,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace RazorPDF
+namespace RazorPDFCore
 {
     public class PdfView : IView
     {

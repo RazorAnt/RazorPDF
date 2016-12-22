@@ -31,7 +31,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RazorPDF
+namespace RazorPDFCore
 {
     public class PdfResultExecutor : ViewExecutor
     {

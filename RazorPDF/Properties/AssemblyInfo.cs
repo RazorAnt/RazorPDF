@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RazorPDF")]
-[assembly: AssemblyDescription("RazorPDF used to conver PDF documents usign itextshap and razor views")]
+[assembly: AssemblyTitle("RazorPDFCore")]
+[assembly: AssemblyDescription("RazorPDFCore is used to convert PDF documents usign itextshap and razor views")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Al Nyveldt")]
-[assembly: AssemblyProduct("RazorPDF")]
+[assembly: AssemblyProduct("RazorPDFCore")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

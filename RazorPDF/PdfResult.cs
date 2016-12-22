@@ -25,7 +25,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace RazorPDF
+namespace RazorPDFCore
 {
     public class PdfResult : ActionResult
     {

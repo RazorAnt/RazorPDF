@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RazorPDF
+﻿namespace RazorPDFCore
 {
     public class Controller : Microsoft.AspNetCore.Mvc.Controller
     {
@@ -13,7 +6,7 @@ namespace RazorPDF
         {
             ViewData.Model = model;
 
-            return new RazorPDF.PdfResult()
+            return new PdfResult()
             {
                 FileName = fileName,
                 TempData = TempData,
@@ -25,7 +18,7 @@ namespace RazorPDF
         {
             ViewData.Model = model;
 
-            return new RazorPDF.PdfResult()
+            return new PdfResult()
             {
                 FileName = fileName,
                 TempData = TempData,
@@ -38,7 +31,7 @@ namespace RazorPDF
         {
             ViewData.Model = model;
 
-            return new RazorPDF.PdfResult()
+            return new PdfResult()
             {
                 ViewName = viewName,
                 FileName = fileName,
@@ -51,7 +44,7 @@ namespace RazorPDF
         {
             ViewData.Model = model;
 
-            return new RazorPDF.PdfResult()
+            return new PdfResult()
             {
                 ViewName = viewName,
                 FileName = fileName,
