@@ -1,4 +1,7 @@
 {
+  "version": "1.0.1",
+  "authors": [ "Al Nyveldt", "Ole Koeckemann" ],
+  "description": "RazorPDF used to conver PDF documents usign itextshap and razor views",
   "dependencies": {
     "Newtonsoft.Json": "9.0.1",
     "Microsoft.AspNetCore.Mvc": "1.0.1",

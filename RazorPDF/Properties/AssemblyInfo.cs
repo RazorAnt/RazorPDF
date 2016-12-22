@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RazorPDF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("RazorPDF used to conver PDF documents usign itextshap and razor views")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Al Nyveldt")]
 [assembly: AssemblyProduct("RazorPDF")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
