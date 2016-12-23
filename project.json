@@ -1,0 +1,12 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Microsoft.AspNetCore.Mvc": "1.0.1",
+    "iTextSharp": "5.5.10"
+  },
+  "frameworks": {
+    "net461": {
+    }
+  }
+}
