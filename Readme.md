@@ -5,22 +5,24 @@ RazorPDF is a simple project that makes it a breeze to create PDFs using the Raz
 
 ## Installation
 
-(not yet available on nuget)
+For Visual Studio 2015 use the Package Manager Console to install `RazorPDFCore` (https://www.nuget.org/packages/RazorPDFCore/)
 
-Download it from github and add it as additional project
+`PM> Install-Package RazorPDFCore`
+
+or download it from here and add it as additional project
 
 ## Usage
 
-Once installed, the easiest way to convert a razor view into a PDF is to use the method:
+Once installed, the easiest way to convert a razor view into a PDF is to use the following method:
 
 `ViewPdf(object model, string fileName, string viewName, bool download)`
 
-This method becomes available, when using the inherited class `RazorPDF.Controller`
+This method becomes ONLY available, when you ise the inherited Controller class `RazorPDF.Controller`
 
 Example:
 
 ```
-class YourController : RazorPDF.Controller {
+class YourBaseController : RazorPDF.Controller {
     // [...]
     public IActionResult Pdf() {
         var model = /* any model you wish */
