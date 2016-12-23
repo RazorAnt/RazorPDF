@@ -4,7 +4,7 @@
   "description": "RazorPDF used to conver PDF documents usign itextshap and razor views",
   "dependencies": {
     "iTextSharp": "5.5.10",
-    "itextsharp.xmlworker461": "5.5.9",
+    "itextsharp.xmlworker": "5.5.10",
     "Microsoft.AspNetCore.Mvc": "1.0.1"
   },
   "frameworks": {
