@@ -13,11 +13,18 @@ or download it from here and add it as additional project
 
 ## Usage
 
-Once installed, the easiest way to convert a razor view into a PDF is to use the following method:
+Add the `PdfResultExecutor` service into your `Startup.cs`
+
+```
+public void ConfigureServices(IServiceCollection services) {
+    // [...]
+    services.AddSingleton<PdfResultExecutor>();
+}
+```
+
+Return the below command in your controller action
 
 `ViewPdf(object model, string fileName, string viewName, bool download)`
-
-This method becomes ONLY available, when you ise the inherited Controller class `RazorPDF.Controller`
 
 Example:
 
@@ -30,6 +37,9 @@ class YourBaseController : RazorPDF.Controller {
     }
 }
 ```
+
+PLEASE NOTE: 
+This method becomes ONLY available, when you use the inherited Controller class `RazorPDF.Controller`
 
 ## Changelog
 
