@@ -31,6 +31,13 @@ class YourController : RazorPDF.Controller {
 
 ## Changelog
 
+**v1.0.3**
+- make use of the XMLWorker instead to give more html/css flexibility
+
+**v1.0.2**
+- replaced *.csproj with *.xproj
+
+
 **v1.0.1**
 - updated source code to work with ASP.NET Core (tested on v1.0.1)
 

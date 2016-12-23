@@ -1,10 +1,11 @@
 ﻿{
-  "version": "1.0.2-*",
+  "version": "1.0.3-*",
   "authors": [ "Al Nyveldt", "Ole Koeckemann" ],
   "description": "RazorPDF used to conver PDF documents usign itextshap and razor views",
   "dependencies": {
-    "Microsoft.AspNetCore.Mvc": "1.0.1",
-    "iTextSharp": "5.5.10"
+    "iTextSharp": "5.5.10",
+    "itextsharp.xmlworker461": "5.5.9",
+    "Microsoft.AspNetCore.Mvc": "1.0.1"
   },
   "frameworks": {
     "net461": {

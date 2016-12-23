@@ -13,6 +13,7 @@
 // limitations under the License.
 // 
 using iTextSharp.text;
+using iTextSharp.tool.xml;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
@@ -208,18 +209,12 @@ namespace RazorPDFCore
                 // step 2
                 var pdfWriter = PdfWriter.GetInstance(document, response.Body);
 
-                HTMLWorker worker = new HTMLWorker(document);
-
                 razorStream.Position = 0;
                 using (var tr = new StreamReader(razorStream))
                 {
                     // step 3
                     document.Open();
-                    worker.StartDocument();
-                    worker.Parse(tr);
-
-                    worker.EndDocument();
-                    worker.Close();
+                    XMLWorkerHelper.GetInstance().ParseXHtml(pdfWriter, document, tr);
                     document.Close();
                 }
             }
