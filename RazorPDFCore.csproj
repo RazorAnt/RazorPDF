@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>RazorPDF used to conver PDF documents usign itextshap and razor views</Description>
+    <VersionPrefix>1.0.5</VersionPrefix>
+    <Authors>Al Nyveldt;Ole Koeckemann</Authors>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>RazorPDFCore</AssemblyName>
+    <PackageId>RazorPDFCore</PackageId>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.12" />
+    <PackageReference Include="itextsharp.xmlworker" Version="5.5.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
