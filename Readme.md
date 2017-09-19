@@ -5,6 +5,8 @@ RazorPDF is a simple project that makes it a breeze to create PDFs using the Raz
 
 ## Installation
 
+**PLEASE NOTE:** This installation only applies to the original package
+
 For Visual Studio 2015 use the Package Manager Console to install `RazorPDFCore` (https://www.nuget.org/packages/RazorPDFCore/)
 
 `PM> Install-Package RazorPDFCore`
@@ -42,6 +44,12 @@ PLEASE NOTE:
 This method becomes ONLY available, when you use the inherited Controller class `RazorPDF.Controller`
 
 ## Changelog
+
+**v1.0.6**
+- updated AspNetCore v2.0
+
+**v1.0.5**
+- updated AspNetCore v1.1.3
 
 **v1.0.3**
 - make use of the XMLWorker instead to give more html/css flexibility
