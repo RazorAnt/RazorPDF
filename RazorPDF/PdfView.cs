@@ -12,46 +12,59 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.IO;
-using System.Web.Mvc;
-
 namespace RazorPDF
 {
+    using System.IO;
+    using System.Text;
+    using System.Web.Mvc;
+
     public class PdfView : IView, IViewEngine
     {
-        private readonly ViewEngineResult result;
+        private readonly ViewEngineResult _result;
 
         public PdfView(ViewEngineResult result)
         {
-            this.result = result;
+            this._result = result;
         }
 
-        public void Render(ViewContext viewContext, TextWriter writer)
+        public void Render(
+            ViewContext viewContext,
+            TextWriter writer)
         {
-            var sb = new System.Text.StringBuilder();
-            var tw = new System.IO.StringWriter(sb);
-            this.result.View.Render(viewContext, tw);
-            var resultCache = sb.ToString();
-            var parser = new PdfParser();
-            var ms = parser.ParseHtml(resultCache);
+            StringBuilder sb = new StringBuilder();
+            StringWriter tw = new StringWriter(sb);
+            this._result.View.Render(viewContext, tw);
+            string resultCache = sb.ToString();
+            PdfParser parser = new PdfParser();
+            MemoryStream ms = parser.ParseHtml(resultCache);
             viewContext.HttpContext.Response.ContentType = "application/pdf";
             viewContext.HttpContext.Response.BinaryWrite(ms.ToArray());
         }
         
-        public ViewEngineResult FindPartialView(ControllerContext controllerContext, string partialViewName, bool useCache)
+        public ViewEngineResult FindPartialView(
+            ControllerContext controllerContext,
+            string partialViewName,
+            bool useCache)
         {
             throw new System.NotImplementedException();
         }
 
 
-        public ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
+        public ViewEngineResult FindView(
+            ControllerContext controllerContext, 
+            string viewName, 
+            string masterName,
+            bool useCache)
         {
             throw new System.NotImplementedException();
         }
 
-        public void ReleaseView(ControllerContext controllerContext, IView view)
+        public void ReleaseView(
+            ControllerContext controllerContext,
+            IView view)
         {
-            this.result.ViewEngine.ReleaseView(controllerContext, this.result.View);
+            this._result.ViewEngine
+                .ReleaseView(controllerContext, this._result.View);
         }
     }
 }

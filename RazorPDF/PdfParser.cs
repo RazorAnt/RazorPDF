@@ -1,4 +1,4 @@
-﻿// Copyright 2013 Russlan Akiev
+﻿// Copyright 2017 Russlan Akiev
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,33 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
-using RazorEngine;
-using System.IO;
-
 namespace RazorPDF
 {
+    using System.IO;
+    using iTextSharp.text;
+    using iTextSharp.text.html.simpleparser;
+    using iTextSharp.text.pdf;
+    using RazorEngine;
+
     public class PdfParser
     {
         public MemoryStream ParseHtml(string html)
         {
-            var ms = new MemoryStream();
-            var document = new Document();
-            var pdfWriter = PdfWriter.GetInstance(document, ms);
-            var worker = new HTMLWorker(document);
+            MemoryStream ms = new MemoryStream();
+            Document document = new Document();
+            PdfWriter pdfWriter = PdfWriter.GetInstance(document, ms);
+            HTMLWorker worker = new HTMLWorker(document);
+          
             document.Open();
             worker.StartDocument();
-
             pdfWriter.CloseStream = false;
-
             worker.Parse(new StringReader(html));
             worker.EndDocument();
             worker.Close();
             document.CloseDocument();
-            document.Close();
-
+            document.Close();            
             pdfWriter.Flush();
             pdfWriter.Close();
 
@@ -46,7 +44,7 @@ namespace RazorPDF
         }
 
         public MemoryStream ParseRazor(string razorTemplate)
-        {
+        {   
             return this.ParseHtml(Razor.Parse(razorTemplate));
         }
 

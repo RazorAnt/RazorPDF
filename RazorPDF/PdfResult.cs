@@ -12,34 +12,48 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Web.Mvc;
-
 namespace RazorPDF
 {
+    using System.Web.Mvc;
+
     public class PdfResult : ViewResult
     {
-        public PdfResult() : this(null, null) { }
+        public PdfResult() : this(null, null)
+        {
+        }
 
-        public PdfResult(string viewName) : this(viewName, null) { }
+        public PdfResult(string viewName) : this(viewName, null)
+        {
+        }
 
-        public PdfResult(object model) : this(null, model) { }
+        public PdfResult(object model) : this(null, model)
+        {
+        }
 
         public PdfResult(string viewName, object model)
         {
             if (model != null)
+            {
                 this.ViewData = new ViewDataDictionary(model);
+            }
 
             if (!string.IsNullOrWhiteSpace(viewName))
+            {
                 this.ViewName = viewName;
+            }
         }
 
-        protected override ViewEngineResult FindView(ControllerContext context)
+        protected override ViewEngineResult FindView(
+            ControllerContext context)
         {
-            var result = base.FindView(context);
-            if (result.View == null)
-                return result;
+            ViewEngineResult result = base.FindView(context);
 
-            var pdfView = new PdfView(result);
+            if (result.View == null)
+            {
+                return result;
+            }
+
+            PdfView pdfView = new PdfView(result);
             return new ViewEngineResult(pdfView, pdfView);
         }
     }
