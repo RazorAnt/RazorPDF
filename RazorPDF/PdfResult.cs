@@ -11,39 +11,49 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
 
 namespace RazorPDF
 {
+    using System.Web.Mvc;
+
     public class PdfResult : ViewResult
     {
-        //Constructors
-        public PdfResult(object model, string name)
-        {
-            ViewData = new ViewDataDictionary(model);
-            ViewName = name;
-        }
-        public PdfResult() : this(new ViewDataDictionary(), "Pdf")
-        {
-        }
-        public PdfResult(object model) : this(model, "Pdf")
+        public PdfResult() : this(null, null)
         {
         }
 
-        //Override FindView to load PdfView
-        protected override ViewEngineResult FindView(ControllerContext context)
+        public PdfResult(string viewName) : this(viewName, null)
         {
-            var result = base.FindView(context);
+        }
+
+        public PdfResult(object model) : this(null, model)
+        {
+        }
+
+        public PdfResult(string viewName, object model)
+        {
+            if (model != null)
+            {
+                this.ViewData = new ViewDataDictionary(model);
+            }
+
+            if (!string.IsNullOrWhiteSpace(viewName))
+            {
+                this.ViewName = viewName;
+            }
+        }
+
+        protected override ViewEngineResult FindView(
+            ControllerContext context)
+        {
+            ViewEngineResult result = base.FindView(context);
+
             if (result.View == null)
+            {
                 return result;
+            }
 
-            var pdfView = new PdfView(result);
+            PdfView pdfView = new PdfView(result);
             return new ViewEngineResult(pdfView, pdfView);
         }
     }
