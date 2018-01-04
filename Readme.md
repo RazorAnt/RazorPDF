@@ -45,22 +45,25 @@ This method becomes ONLY available, when you use the inherited Controller class 
 
 ## Changelog
 
-**v1.0.6**
+**1.0.7**
+- extend PdfResult to defined PageSize properties
+
+**1.0.6**
 - updated AspNetCore v2.0
 
-**v1.0.5**
+**1.0.5**
 - updated AspNetCore v1.1.3
 
-**v1.0.3**
+**1.0.3**
 - make use of the XMLWorker instead to give more html/css flexibility
 
-**v1.0.2**
+**1.0.2**
 - replaced *.csproj with *.xproj
 
 
-**v1.0.1**
+**1.0.1**
 - updated source code to work with ASP.NET Core (tested on v1.0.1)
 
-**v1.0.0**
+**1.0.0**
 - forked from RazorAnt/RazorPDF
 
