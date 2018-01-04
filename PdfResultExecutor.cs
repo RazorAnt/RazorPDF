@@ -205,7 +205,7 @@ namespace RazorPDFCore
                 await view.RenderAsync(viewContext);
                 await writer.FlushAsync();
 
-                Document document = new Document();
+                Document document = new Document(viewResult.PageSize);
                 // step 2
                 var pdfWriter = PdfWriter.GetInstance(document, response.Body);
 

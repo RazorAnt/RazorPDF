@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // 
+using iTextSharp.text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -49,6 +50,8 @@ namespace RazorPDFCore
 
         public string FileName { get; set; }
         public bool Download { get; set; }
+
+        public Rectangle PageSize { get; set; } = iTextSharp.text.PageSize.A4;
 
         public IViewEngine ViewEngine { get; set; }
 
