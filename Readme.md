@@ -1,13 +1,69 @@
-RazorPDF
+RazorPDF Core
 ==============
 
 RazorPDF is a simple project that makes it a breeze to create PDFs using the Razor view engine. Since Razor is really a template syntax, it can do lot more than just generate HTML.  RazorPDF uses it to generate iText XML.  Then using the iTextSharp library, we turn that iText XML into a PDF to return.  The end result is a easy to use, clean method for generating PDFs.
 
-##Usage
-The easiest way to get started with RazorPDF is to add the Nuget package to your MVC project. There is a short screencast on [my blog](http://nyveldt.com/blog/page/razorpdf) to get you started so well as a sample project and some syntax samples.
+## Installation
 
-##Acknowledgements
-RazorPDF likely wouldn't exist without the [Spark view engine](http://sparkviewengine.com/). The ability to create PDFs with the Spark view engine is something I've missed often since switching to using Razor as my default view engine in MVC projects. Huge thanks to [Louis DeJardin](http://whereslou.com/) for putting together the Spark view engine many years ago and for the idea of mixing Spark with iTextSharp as a nice way to make PDFs.
+**PLEASE NOTE:** This installation only applies to the original package
 
-Also, RazorPDF is worthless without [iTextSharp](http://sourceforge.net/projects/itextsharp/).  Thanks so much to the team that works on that incredible project.
+For Visual Studio 2015 use the Package Manager Console to install `RazorPDFCore` (https://www.nuget.org/packages/RazorPDFCore/)
+
+`PM> Install-Package RazorPDFCore`
+
+or download it from here and add it as additional project
+
+## Usage
+
+Add the `PdfResultExecutor` service into your `Startup.cs`
+
+```
+public void ConfigureServices(IServiceCollection services) {
+    // [...]
+    services.AddSingleton<PdfResultExecutor>();
+}
+```
+
+Return the below command in your controller action
+
+`ViewPdf(object model, string fileName, string viewName, bool download)`
+
+Example:
+
+```
+class YourBaseController : RazorPDF.Controller {
+    // [...]
+    public IActionResult Pdf() {
+        var model = /* any model you wish */
+        return ViewPdf(model);
+    }
+}
+```
+
+PLEASE NOTE: 
+This method becomes ONLY available, when you use the inherited Controller class `RazorPDF.Controller`
+
+## Changelog
+
+**1.0.7**
+- extend PdfResult to defined PageSize properties
+
+**1.0.6**
+- updated AspNetCore v2.0
+
+**1.0.5**
+- updated AspNetCore v1.1.3
+
+**1.0.3**
+- make use of the XMLWorker instead to give more html/css flexibility
+
+**1.0.2**
+- replaced *.csproj with *.xproj
+
+
+**1.0.1**
+- updated source code to work with ASP.NET Core (tested on v1.0.1)
+
+**1.0.0**
+- forked from RazorAnt/RazorPDF
 
